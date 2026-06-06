@@ -1,4 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; }
 
   :root {
     --blue:       #1B55B0;
@@ -662,8 +663,36 @@
   .stat-strip { padding: 24px; flex-direction: column; gap: 24px; }
 
   /* Overflow fix global */
-  body { overflow-x: hidden; }
+  html, body { overflow-x: hidden; max-width: 100%; }
   .hero::before, .hero::after { display: none; }
+  
+  /* Contain all sections */
+  .hero, section, footer, .stat-strip, nav { max-width: 100%; }
+
+  /* Hero visual containment */
+  .hero-visual { overflow: hidden; max-width: 100%; }
+  .phone-frame { max-width: 100%; margin: 0 auto; }
+
+  /* Fix steps horizontal line overflow */
+  .steps::before { display: none; }
+  .steps { grid-template-columns: 1fr; gap: 32px; }
+  .step { padding: 0 16px; }
+
+  /* Fix CTA section */
+  .cta-section::before { width: 100%; }
+  .cta-btns { flex-direction: column; align-items: center; }
+
+  /* Fix FAQ */
+  .faq-grid { max-width: 100%; }
+
+  /* Fix footer grid */
+  .footer-grid { grid-template-columns: 1fr; }
+
+  /* Fix stat strip */
+  .stat-strip { flex-wrap: wrap; }
+
+  /* Fix any wide fixed elements */
+  img, svg, video, iframe { max-width: 100%; height: auto; }
 }
 
 /* ── SMALL MOBILE ── */
