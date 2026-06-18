@@ -13,7 +13,7 @@ Este repositorio contiene la implementación del **Landing Page** del producto, 
 
 ## 🚀 Demo
 
-🔗 **Landing Page en producción:** [https://[ORG].github.io/[REPO]/](https://[ORG].github.io/[REPO]/)
+🔗 **Landing Page:** [https://memotech-upc.github.io/memora/](https://memotech-upc.github.io/memora/)
 
 ## 👥 Equipo — MemoTech
 
