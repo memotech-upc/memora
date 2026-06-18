@@ -64,19 +64,7 @@ memora-landing-page/
         ├── images/
         └── scripts/
             └── main.js
-```
 
-## 🌳 Flujo de trabajo (GitFlow)
-
-Este proyecto sigue el modelo [GitFlow](https://nvie.com/posts/a-successful-git-branching-model/) de Vincent Driessen:
-
-- `main` — rama de producción, solo versiones estables.
-- `develop` — rama de integración del desarrollo activo.
-- `feature/<nombre>` — una rama por funcionalidad, creada a partir de `develop`.
-- `release/<versión>` — preparación de una nueva versión siguiendo [Semantic Versioning](https://semver.org/).
-- `hotfix/<descripción>` — correcciones urgentes sobre `main`.
-
-Los mensajes de commit siguen el estándar [Conventional Commits](https://www.conventionalcommits.org/).
 
 ## 📄 Licencia
 
