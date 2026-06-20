@@ -1,4 +1,4 @@
-Feature: US02 - Sección Hero del Landing Page
+Feature: US-LP02 - Sección Hero del Landing Page
   Como visitante del Landing Page
   Quiero visualizar de inmediato la propuesta de valor de Memora
   Para entender en pocos segundos qué hace la aplicación y decidir si registrarme
