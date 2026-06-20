@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<div id="landing-view">
 
 <!-- ══════════════════════════════════════════════
      NAV
@@ -36,7 +37,9 @@
     <a href="#familias" class="nav-link-item">Para familias</a>
     <a href="#testimonios" class="nav-link-item">Testimonios</a>
     <a href="#faq" class="nav-link-item">Preguntas</a>
-    <a href="#cta" class="btn-nav">Empezar gratis →</a>
+   <!-- <a href="#cta" class="btn-nav">Empezar gratis →</a>*/-->
+    <!-- <a href="#login-view" class="btn-nav">Empezar gratis →</a>/-->
+    <a href="#login-view" class="btn-nav" style="background-color: var(--blue); color: white;">Empezar gratis &rarr;</a>
   </div>
 </nav>
 
@@ -56,7 +59,9 @@
       Memora es la app de reminiscencia activa que ayuda a tu familiar a reconectarse con su identidad y sus recuerdos todos los días, de forma simple y autónoma.
     </p>
     <div class="hero-ctas fade-up d4">
-      <a href="#cta" class="btn-primary">
+      <!-- <a href="#cta" class="btn-primary">-->
+        <!-- <a href="#login-view" class="btn-primary"></a>-->
+         <a href="#login-view" class="btn-primary">Empezar gratis &rarr;</a>
         <svg viewBox="0 0 24 24" fill="white"><path d="M5 3l14 9-14 9V3z"/></svg>
         Crear cuenta gratis
       </a>
@@ -391,7 +396,8 @@
   <h2>Tu familiar merece empezar el día<br><em>sabiendo quién es.</em></h2>
   <p>Creá la cuenta en menos de 3 minutos. Sin tarjeta de crédito.</p>
   <div class="cta-btns">
-    <a href="#" class="btn-cta-primary">
+    <!-- <a href="#" class="btn-cta-primary"> -->
+      <a href="#login-view" class="btn-cta-primary">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--blue)"><path d="M5 3l14 9-14 9V3z"/></svg>
       Comenzar ahora — Es gratis
     </a>
@@ -453,7 +459,136 @@
     <p>© 2026 MemoTech · UPC · Ciclo 2026-01. Hecho en Lima, Perú.</p>
   </div>
 </footer>
+</div> <!-- Cierre de #landing-view -->
 
+<!-- ==========================================
+     PANTALLA 2: FACHADA DEL LOGIN
+     ========================================== -->
+<div id="login-view" class="auth-container">
+    <div class="auth-card">
+        <h2>MEMORA</h2>
+        <p style="color: var(--text-sec); margin-bottom: 20px;">Ingresa tus datos para continuar</p>
+        <form onsubmit="return false;">
+            <input type="email" placeholder="Correo electrónico">
+            <input type="password" placeholder="Contraseña">
+            <!-- Al darle clic a este botón, saltamos al Home mediante el numeral #home-view -->
+            <a href="#home-view" class="btn-fake-submit">Ingresar</a>
+        </form>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-sec);">
+            ¿No tienes cuenta? <a href="#login-view" style="color: var(--blue); font-weight: 600;">Regístrate aquí</a>
+        </p>
+    </div>
+</div>
+
+<!-- ==========================================
+     PANTALLA 3: VISTA HOME (Mockup 1 Adulto Mayor)
+     ========================================== -->
+<div id="home-view" class="app-layout" style="display: none; background: var(--bg); min-height: 100vh;">
+    <!-- Menú lateral fijo -->
+    <aside class="sidebar" style="width: 260px; background: white; border-right: 1px solid rgba(27,85,176,.1); padding: 2rem; position: fixed; height: 100vh;">
+        <div class="logo-wordmark" style="font-size: 24px; margin-bottom: 2.5rem; display: block;">MEMORA</div>
+        <nav style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="#home-view" style="background: var(--blue); color: white; padding: 12px 16px; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600;">🏠 Inicio</a>
+            <a href="#recuerdos-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">💙 Recuerdos</a>
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">👥 Familia</a>
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">⚡ Actividades</a>
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">👤 Perfil</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="app-content" style="margin-left: 260px; padding: 48px; display: flex; flex-direction: column; gap: 32px; width: calc(100% - 260px);">
+        
+        <div class="app-card" style="background: white; padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow);">
+            <h3 style="color: var(--text); margin-bottom: 16px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">RECUERDO DEL DÍA</h3>
+            <div style="background: var(--blue-pale); aspect-ratio: 16/9; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; max-width: 700px;">
+                <div style="width: 64px; height: 64px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; padding-left: 4px; box-shadow: 0 4px 12px rgba(27,85,176,.3);">▶</div>
+            </div>
+            <p style="margin-top: 16px; color: var(--text-sec); font-size: 14px;">5 de Junio, 2026 - 14:30</p>
+        </div>
+
+        <div class="app-card" style="background: white; padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow);">
+            <h3 style="color: var(--text); margin-bottom: 24px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">¿Cómo te sentís hoy?</h3>
+            <div style="display: flex; gap: 24px; max-width: 500px; justify-content: space-between;">
+                <div style="text-align: center; font-size: 32px;">😊<p style="font-size: 13px; color: var(--text-sec); margin-top: 8px;">Feliz</p></div>
+                <div style="text-align: center; font-size: 32px;">😌<p style="font-size: 13px; color: var(--text-sec); margin-top: 8px;">Tranquilo</p></div>
+                <div style="text-align: center; font-size: 32px;">🤩<p style="font-size: 13px; color: var(--text-sec); margin-top: 8px;">Emocionado</p></div>
+                <div style="text-align: center; font-size: 32px;">😴<p style="font-size: 13px; color: var(--text-sec); margin-top: 8px;">Cansado</p></div>
+                <div style="text-align: center; font-size: 32px;">😢<p style="font-size: 13px; color: var(--text-sec); margin-top: 8px;">Triste</p></div>
+            </div>
+        </div>
+
+        <div class="app-card" style="background: white; padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow);">
+            <h3 style="color: var(--text); margin-bottom: 24px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Tu rutina de hoy</h3>
+            <div style="background: var(--blue-pale); border-radius: 100px; width: 100%; max-width: 600px; height: 36px; overflow: hidden; position: relative;">
+                <div style="background: var(--blue); width: 75%; height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700;">
+                    75% COMPLETADO
+                </div>
+            </div>
+        </div>
+    </main>
+    <button style="position: fixed; bottom: 32px; right: 32px; width: 80px; height: 80px; background: var(--error); color: white; border: none; border-radius: 50%; font-weight: 700; cursor: pointer; box-shadow: 0 10px 24px rgba(235,87,87,0.4); font-size: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">🚨<span>Ayuda</span></button>
+</div>
+
+<!-- ==========================================
+     PANTALLA 4: SECCIÓN RECUERDOS (Mockup 3 Adulto Mayor)
+     ========================================== -->
+<div id="recuerdos-view" class="app-layout" style="display: none; background: var(--bg); min-height: 100vh;">
+    <!-- Menú lateral fijo -->
+    <aside class="sidebar" style="width: 260px; background: white; border-right: 1px solid rgba(27,85,176,.1); padding: 2rem; position: fixed; height: 100vh;">
+        <div class="logo-wordmark" style="font-size: 24px; margin-bottom: 2.5rem; display: block;">MEMORA</div>
+        <nav style="display: flex; flex-direction: column; gap: 8px;">
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">🏠 Inicio</a>
+            <a href="#recuerdos-view" style="background: var(--blue); color: white; padding: 12px 16px; border-radius: var(--radius-sm); text-decoration: none; font-weight: 600;">💙 Recuerdos</a>
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">👥 Familia</a>
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">⚡ Actividades</a>
+            <a href="#home-view" style="color: var(--text-sec); padding: 12px 16px; text-decoration: none; font-weight: 600;">👤 Perfil</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido de Recuerdos -->
+    <main class="app-content" style="margin-left: 260px; padding: 48px; width: calc(100% - 260px);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+            
+            <div style="background: white; padding: 16px; border-radius: var(--radius-md); text-align: left; box-shadow: var(--shadow);">
+                <div style="background: var(--blue-pale); aspect-ratio: 16/9; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><div style="width: 48px; height: 48px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-left: 4px;">▶</div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div><p style="font-weight: 700; color: var(--text); font-size: 15px;">3 Jun 2026</p><p style="color: var(--text-sec); font-size: 13px;">10:15</p></div>
+                    <span style="color: var(--error); font-size: 20px;">❤️</span>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 16px; border-radius: var(--radius-md); text-align: left; box-shadow: var(--shadow);">
+                <div style="background: var(--blue-pale); aspect-ratio: 16/9; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><div style="width: 48px; height: 48px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-left: 4px;">▶</div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div><p style="font-weight: 700; color: var(--text); font-size: 15px;">2 Jun 2026</p><p style="color: var(--text-sec); font-size: 13px;">16:45</p></div>
+                    <span style="color: var(--text-sec); font-size: 20px;">🤍</span>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 16px; border-radius: var(--radius-md); text-align: left; box-shadow: var(--shadow);">
+                <div style="background: var(--blue-pale); aspect-ratio: 16/9; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><div style="width: 48px; height: 48px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-left: 4px;">▶</div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div><p style="font-weight: 700; color: var(--text); font-size: 15px;">1 Jun 2026</p><p style="color: var(--text-sec); font-size: 13px;">11:30</p></div>
+                    <span style="color: var(--text-sec); font-size: 20px;">🤍</span>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 16px; border-radius: var(--radius-md); text-align: left; box-shadow: var(--shadow);">
+                <div style="background: var(--blue-pale); aspect-ratio: 16/9; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;"><div style="width: 48px; height: 48px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding-left: 4px;">▶</div></div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div><p style="font-weight: 700; color: var(--text); font-size: 15px;">31 May 2026</p><p style="color: var(--text-sec); font-size: 13px;">14:00</p></div>
+                    <span style="color: var(--error); font-size: 20px;">❤️</span>
+                </div>
+            </div>
+
+        </div>
+        <div style="text-align: center; margin-top: 48px;">
+            <a href="#recuerdos-view" class="btn-primary" style="padding: 16px 32px;">+ GRABAR NUEVO RECUERDO</a>
+        </div>
+    </main>
+    <button style="position: fixed; bottom: 32px; right: 32px; width: 80px; height: 80px; background: var(--error); color: white; border: none; border-radius: 50%; font-weight: 700; cursor: pointer; box-shadow: 0 10px 24px rgba(235,87,87,0.4); font-size: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">🚨<span>Ayuda</span></button>
+</div>
 <script src="assets/scripts/main.js" defer></script>
 </body>
 </html>
