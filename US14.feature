@@ -1,38 +1,48 @@
-Feature: US14 - Reacciones con Emojis gigantes
+Feature: US14 - Reacciones con emojis gigantes
   Como Héctor
   Quiero responder con iconos de reacciones grandes
   Para expresar mis emociones fácilmente
 
-Scenario: Reacción exitosa a un mensaje recibido
-  Given que el usuario visualiza un mensaje recibido
+Scenario: El adulto mayor reacciona a un mensaje recibido
+  Given que Héctor visualiza un mensaje recibido en el chat de Familia
   When selecciona una de las reacciones rápidas
-  Then el emoji aparece debajo del mensaje original
-Examples:
-  | INPUT |
-  | Mensaje recibido: Foto de los nietos |
-  | Reacción seleccionada: "❤️" |
-  | OUTPUT |
-  | Emoji visible debajo del mensaje: Sí |
+  Then el emoji debe aparecer debajo del mensaje original
+  And debe mostrarse con un tamaño grande y visible
 
-Scenario: Cambio de una reacción ya enviada
-  Given que el usuario ya reaccionó a un mensaje con un emoji
-  When selecciona una reacción diferente sobre el mismo mensaje
-  Then el sistema reemplaza la reacción anterior por la nueva
 Examples:
-  | INPUT |
-  | Reacción previa: "😊" |
-  | Nueva reacción seleccionada: "❤️" |
-  | OUTPUT |
-  | Reacción final mostrada: "❤️" |
-  | Reacciones simultáneas en el mensaje: 1 |
+| INPUT |
+| Mensaje recibido: "Te mando un fuerte abrazo" |
+| Reacción seleccionada: "❤️" |
 
-Scenario: Eliminación de una reacción al volver a seleccionarla
-  Given que el usuario reaccionó previamente a un mensaje con un emoji específico
-  When vuelve a tocar la misma reacción
-  Then el sistema elimina la reacción del mensaje
+| OUTPUT |
+| Reacción mostrada: "❤️" debajo del mensaje |
+
+
+Scenario: El adulto mayor cambia la reacción ya colocada en un mensaje
+  Given que Héctor ya reaccionó a un mensaje con un emoji
+  When selecciona una reacción distinta sobre el mismo mensaje
+  Then el sistema debe reemplazar la reacción anterior
+  And mostrar únicamente el nuevo emoji seleccionado
+
 Examples:
-  | INPUT |
-  | Reacción previa: "👍" |
-  | Acción: Tap sobre la misma reacción |
-  | OUTPUT |
-  | Reacción visible: No |
+| INPUT |
+| Reacción previa: "👍" |
+| Nueva reacción seleccionada: "😂" |
+
+| OUTPUT |
+| Reacción mostrada: "😂" (reemplaza a "👍") |
+
+
+Scenario: El sistema falla al guardar la reacción seleccionada
+  Given que Héctor selecciona una reacción rápida sobre un mensaje
+  When ocurre un error de conexión al guardar la reacción
+  Then el emoji no debe mostrarse debajo del mensaje
+  And el sistema debe mostrar el mensaje "No se pudo enviar tu reacción"
+
+Examples:
+| INPUT |
+| Reacción seleccionada: "😮" |
+| Condición: Falla de conexión |
+
+| OUTPUT |
+| Mensaje de error: "No se pudo enviar tu reacción" |

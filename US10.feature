@@ -3,38 +3,68 @@ Feature: US10 - Envío de mensajes de voz
   Quiero enviar audios manteniendo presionado un solo botón
   Para comunicarme sin la dificultad de escribir en un teclado
 
-Scenario: Grabación y envío exitoso de un audio
-  Given que el usuario está en el chat de Familia
-  When mantiene presionado el icono del micrófono y luego lo suelta
-  Then el sistema graba y envía el audio al soltarlo
-Examples:
-  | INPUT |
-  | Acción: Mantener presionado el micrófono por 4 segundos |
-  | OUTPUT |
-  | Audio grabado: Sí |
-  | Audio enviado: Sí |
-  | Duración del audio: 4 segundos |
+Scenario: El adulto mayor envía un mensaje de voz correctamente
+  Given que Héctor está en el chat de Familia
+  When mantiene presionado el icono del micrófono y habla
+  And suelta el icono al terminar de grabar
+  Then el sistema graba el audio
+  And lo envía automáticamente al chat de Familia
 
-Scenario: Cancelación de la grabación al deslizar fuera del botón
-  Given que el usuario está grabando un audio manteniendo presionado el micrófono
-  When desliza el dedo fuera del área del botón antes de soltarlo
-  Then el sistema cancela la grabación
-  And no envía ningún audio
 Examples:
-  | INPUT |
-  | Acción: Deslizar fuera del botón durante grabación |
-  | OUTPUT |
-  | Audio enviado: No |
-  | Grabación cancelada: Sí |
+| INPUT |
+| Sección: Chat de Familia |
+| Duración de la grabación: 8 segundos |
 
-Scenario: Audio demasiado corto
-  Given que el usuario presiona y suelta el micrófono casi de inmediato
-  When la duración de la grabación es menor a 1 segundo
-  Then el sistema descarta la grabación
-  And muestra un mensaje indicando que el audio fue muy corto
+| OUTPUT |
+| Audio: Enviado al chat de Familia |
+| Duración mostrada: 0:08 |
+
+
+Scenario: El adulto mayor suelta el botón antes de grabar audio suficiente
+  Given que Héctor está en el chat de Familia
+  When mantiene presionado el icono del micrófono menos de 1 segundo
+  And suelta el botón inmediatamente
+  Then el sistema no debe enviar ningún audio
+  And debe mostrar el mensaje "Mantén presionado para grabar"
+
 Examples:
-  | INPUT |
-  | Duración de la grabación: 0.5 segundos |
-  | OUTPUT |
-  | Audio enviado: No |
-  | Mensaje mostrado: "Mantén presionado para grabar" |
+| INPUT |
+| Sección: Chat de Familia |
+| Duración de la presión: 0.4 segundos |
+
+| OUTPUT |
+| Audio: No enviado |
+| Mensaje: "Mantén presionado para grabar" |
+
+
+Scenario: El adulto mayor cancela la grabación deslizando el dedo fuera del botón
+  Given que Héctor está grabando un audio en el chat de Familia
+  When desliza el dedo fuera del icono del micrófono antes de soltarlo
+  Then el sistema debe cancelar la grabación
+  And no debe enviar ningún audio al chat
+
+Examples:
+| INPUT |
+| Sección: Chat de Familia |
+| Acción: Deslizar el dedo fuera del botón de grabación |
+
+| OUTPUT |
+| Audio: Grabación cancelada |
+| Mensaje: "Audio cancelado" |
+
+
+Scenario: El sistema falla al enviar el audio grabado
+  Given que Héctor graba y suelta el botón de micrófono correctamente
+  When ocurre un error de conexión al momento de enviar el audio
+  Then el audio no debe llegar al chat de Familia
+  And debe quedar marcado como "No enviado" con opción de reintentar
+
+Examples:
+| INPUT |
+| Sección: Chat de Familia |
+| Duración de la grabación: 5 segundos |
+| Condición: Sin conexión a internet |
+
+| OUTPUT |
+| Estado del audio: "No enviado" |
+| Acción disponible: Botón "Reintentar" |

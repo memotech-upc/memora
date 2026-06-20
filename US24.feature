@@ -3,34 +3,65 @@ Feature: US24 - Actualización de datos de salud
   Quiero registrar alergias o condiciones médicas en el perfil
   Para que cualquier persona que asista a mi padre tenga esa información a la mano
 
-Scenario: Registro exitoso de una observación de salud
+Scenario: La hija registra una nueva observación de salud
   Given que la hija está en la sección "Estado de salud" del Perfil
   When escribe una nueva observación de salud
-  Then la información queda guardada y visible en caso de emergencia
-Examples:
-  | INPUT |
-  | Observación ingresada: "Alergia a la penicilina" |
-  | OUTPUT |
-  | Observación guardada: Sí |
-  | Visible en caso de emergencia: Sí |
+  And presiona el botón "Guardar"
+  Then la información queda guardada
+  And visible en caso de emergencia
 
-Scenario: Edición de una observación de salud existente
-  Given que ya existe una observación de salud registrada
-  When la hija modifica el texto de la observación
-  Then el sistema actualiza la información guardada
 Examples:
-  | INPUT |
-  | Observación previa: "Alergia a la penicilina" |
-  | Observación actualizada: "Alergia a la penicilina y al polen" |
-  | OUTPUT |
-  | Información actualizada: Sí |
+| INPUT |
+| Observación: "Alergia a la penicilina" |
+| Acción: Clic en el botón "Guardar" |
 
-Scenario: Eliminación de una observación de salud
-  Given que existe una observación de salud que ya no es vigente
-  When la hija la elimina desde la sección de edición
-  Then el sistema remueve la observación del perfil
+| OUTPUT |
+| Observación guardada: "Alergia a la penicilina" |
+| Visibilidad: Disponible en caso de emergencia |
+
+
+Scenario: La hija intenta guardar la observación de salud sin escribir contenido
+  Given que la hija está en la sección "Estado de salud" del Perfil
+  When deja el campo de observación vacío
+  And presiona el botón "Guardar"
+  Then el sistema no debe guardar ninguna observación
+  And debe mostrar el mensaje "Escribe una observación antes de guardar"
+
 Examples:
-  | INPUT |
-  | Acción: Eliminar observación |
-  | OUTPUT |
-  | Observación eliminada: Sí |
+| INPUT |
+| Observación: "" |
+| Acción: Clic en el botón "Guardar" |
+
+| OUTPUT |
+| Mensaje de error: "Escribe una observación antes de guardar" |
+
+
+Scenario: La hija ingresa una observación que excede el límite de caracteres permitido
+  Given que la hija está en la sección "Estado de salud" del Perfil
+  When escribe una observación que supera el límite de 300 caracteres
+  And presiona el botón "Guardar"
+  Then el sistema no debe permitir guardar el texto completo
+  And debe mostrar el mensaje "La observación supera el límite de caracteres permitido"
+
+Examples:
+| INPUT |
+| Observación: Texto de 350 caracteres |
+| Acción: Clic en el botón "Guardar" |
+
+| OUTPUT |
+| Mensaje de error: "La observación supera el límite de caracteres permitido" |
+
+
+Scenario: El sistema falla al guardar la observación de salud
+  Given que la hija escribe una observación válida en el campo de salud
+  When ocurre un error de conexión al guardar la información
+  Then la observación no debe quedar registrada
+  And el sistema debe mostrar el mensaje "No se pudo guardar la información, inténtalo nuevamente"
+
+Examples:
+| INPUT |
+| Observación: "Hipertensión arterial controlada" |
+| Condición: Falla de conexión |
+
+| OUTPUT |
+| Mensaje de error: "No se pudo guardar la información, inténtalo nuevamente" |

@@ -3,32 +3,48 @@ Feature: US15 - Visualización cronológica
   Quiero ver mis fotos ordenadas por fecha en una línea de tiempo
   Para entender la secuencia de los eventos de mi vida
 
-Scenario: Visualización exitosa de la línea de tiempo
-  Given que el usuario se encuentra en la sección Biblioteca
+Scenario: El adulto mayor visualiza sus recuerdos ordenados cronológicamente
+  Given que Héctor se encuentra en la sección Biblioteca
   When desliza hacia abajo
-  Then el sistema muestra las fotos de la más reciente a la más antigua
-Examples:
-  | INPUT |
-  | Acción: Scroll hacia abajo en Biblioteca |
-  | OUTPUT |
-  | Orden de las fotos: Más reciente primero |
+  Then el sistema muestra las fotos ordenadas de la más reciente a la más antigua
+  And conserva la fecha visible en cada recuerdo
 
-Scenario: Biblioteca vacía para un usuario nuevo
-  Given que el usuario no ha grabado ningún video ni recibido fotos aún
-  When accede a la sección Biblioteca
-  Then el sistema muestra un mensaje invitando a grabar el primer recuerdo
 Examples:
-  | INPUT |
-  | Cantidad de recuerdos: 0 |
-  | OUTPUT |
-  | Mensaje mostrado: "Aún no tienes recuerdos. ¡Grabá tu primer video!" |
+| INPUT |
+| Sección: Biblioteca |
+| Fotos disponibles: 12 |
 
-Scenario: Carga de más contenido al llegar al final de la lista
-  Given que el usuario hace scroll hasta el final de los recuerdos cargados
-  When continúa desplazándose hacia abajo
-  Then el sistema carga automáticamente recuerdos más antiguos (paginación)
+| OUTPUT |
+| Orden mostrado: De la más reciente a la más antigua |
+| Fecha visible: En cada foto de la línea de tiempo |
+
+
+Scenario: El adulto mayor ingresa a la Biblioteca sin recuerdos guardados
+  Given que aún no se ha subido ningún recuerdo a la Biblioteca
+  When Héctor ingresa a la sección Biblioteca
+  Then el sistema no debe mostrar ninguna línea de tiempo
+  And debe mostrar el mensaje "Aún no hay recuerdos guardados"
+
 Examples:
-  | INPUT |
-  | Recuerdos cargados inicialmente: 20 |
-  | OUTPUT |
-  | Recuerdos adicionales cargados: 20 |
+| INPUT |
+| Sección: Biblioteca |
+| Fotos disponibles: 0 |
+
+| OUTPUT |
+| Mensaje: "Aún no hay recuerdos guardados" |
+
+
+Scenario: El sistema falla al cargar la línea de tiempo de recuerdos
+  Given que Héctor ingresa a la sección Biblioteca
+  When ocurre un error al cargar los recuerdos almacenados
+  Then la línea de tiempo no debe mostrarse
+  And el sistema debe mostrar el mensaje "No se pudieron cargar tus recuerdos" con un botón de reintentar
+
+Examples:
+| INPUT |
+| Sección: Biblioteca |
+| Condición: Error al recuperar datos del servidor |
+
+| OUTPUT |
+| Mensaje de error: "No se pudieron cargar tus recuerdos" |
+| Acción disponible: Botón "Reintentar" |

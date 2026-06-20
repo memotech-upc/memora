@@ -3,35 +3,65 @@ Feature: US20 - Recordatorio de efemérides
   Quiero recibir una notificación si hoy se cumple el aniversario de un video/foto guardado
   Para celebrar momentos especiales del pasado
 
-Scenario: Aviso exitoso de efeméride
-  Given que una foto coincide con la fecha actual (pero de años anteriores)
-  When el usuario abre la app
-  Then aparece un aviso de "Un día como hoy"
-Examples:
-  | INPUT |
-  | Fecha actual: "15/06" |
-  | Fecha del recuerdo: "15/06/2024" |
-  | OUTPUT |
-  | Aviso mostrado: "Un día como hoy" |
-  | Recuerdo asociado mostrado: Sí |
+Scenario: El adulto mayor recibe un aviso de aniversario al abrir la app
+  Given que una foto coincide con la fecha actual de años anteriores
+  When Héctor abre la app
+  Then el sistema muestra el aviso "Un día como hoy"
+  And presenta el recuerdo correspondiente a esa fecha
 
-Scenario: Sin efemérides para el día actual
-  Given que ningún recuerdo coincide con la fecha actual de años anteriores
-  When el usuario abre la app
-  Then el sistema no muestra ningún aviso de efeméride
 Examples:
-  | INPUT |
-  | Recuerdos coincidentes con la fecha: 0 |
-  | OUTPUT |
-  | Aviso mostrado: No |
+| INPUT |
+| Fecha actual: 15 de marzo |
+| Foto coincidente: "Cumpleaños de Héctor" (15 de marzo de 2019) |
 
-Scenario: Múltiples efemérides en el mismo día
-  Given que existen dos o más recuerdos guardados con la misma fecha de años distintos
-  When el usuario abre la app en esa fecha
-  Then el sistema agrupa los recuerdos en un solo aviso desplegable
+| OUTPUT |
+| Aviso mostrado: "Un día como hoy" |
+| Recuerdo presentado: "Cumpleaños de Héctor" |
+
+
+Scenario: No existen recuerdos coincidentes con la fecha actual
+  Given que ninguna foto coincide con la fecha actual de años anteriores
+  When Héctor abre la app
+  Then el sistema no debe mostrar ningún aviso de efeméride
+  And debe cargar la pantalla de inicio con normalidad
+
 Examples:
-  | INPUT |
-  | Recuerdos coincidentes: 2 (2023 y 2024) |
-  | OUTPUT |
-  | Aviso agrupado mostrado: Sí |
-  | Recuerdos incluidos: 2 |
+| INPUT |
+| Fecha actual: 2 de febrero |
+| Fotos coincidentes: 0 |
+
+| OUTPUT |
+| Aviso de efeméride: No mostrado |
+| Pantalla de inicio: Cargada con normalidad |
+
+
+Scenario: El sistema falla al verificar las efemérides del día
+  Given que existe contenido en la Biblioteca coincidente con la fecha actual
+  When ocurre un error en el proceso que verifica las efemérides
+  Then el aviso "Un día como hoy" no debe mostrarse
+  And el sistema debe registrar la incidencia sin interrumpir el uso de la app
+
+Examples:
+| INPUT |
+| Fecha actual: 20 de junio |
+| Condición: Falla en el proceso de verificación |
+
+| OUTPUT |
+| Aviso mostrado: No |
+| Incidencia: Registrada internamente |
+
+
+Scenario: Varios recuerdos coinciden con la misma fecha de aniversario
+  Given que más de un recuerdo coincide con la fecha actual de años anteriores
+  When Héctor abre la app
+  Then el sistema debe agrupar todos los recuerdos coincidentes en un solo aviso
+  And permitir desplazarse entre ellos como un carrusel
+
+Examples:
+| INPUT |
+| Fecha actual: 10 de mayo |
+| Fotos coincidentes: "Día de la Madre 2018", "Día de la Madre 2020" |
+
+| OUTPUT |
+| Aviso mostrado: "Un día como hoy" |
+| Recuerdos agrupados: 2 (en formato carrusel) |

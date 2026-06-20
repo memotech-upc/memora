@@ -3,35 +3,46 @@ Feature: US16 - Marcado de sentimientos
   Quiero marcar cómo me siento al ver un recuerdo específico
   Para que mi familia sepa qué videos/fotos me generan mayor alegría
 
-Scenario: Registro exitoso de un sentimiento asociado a un recuerdo
-  Given que el usuario ha visto un video o una foto en la Biblioteca
+Scenario: El adulto mayor marca un sentimiento sobre un recuerdo visualizado
+  Given que Héctor ha visto un video o una foto en la Biblioteca
   When selecciona un emoticón de sentimiento
   Then el sistema guarda esa reacción asociada al recuerdo
-Examples:
-  | INPUT |
-  | Recuerdo visualizado: Video del 12/05 |
-  | Emoticón seleccionado: "Feliz" |
-  | OUTPUT |
-  | Sentimiento guardado: "Feliz" |
-  | Asociado al recuerdo: Sí |
+  And la muestra junto a la fotografía o video correspondiente
 
-Scenario: Cambio del sentimiento ya registrado en un recuerdo
-  Given que un recuerdo ya tiene un sentimiento asociado
-  When el usuario selecciona un emoticón distinto sobre el mismo recuerdo
-  Then el sistema reemplaza el sentimiento anterior por el nuevo
 Examples:
-  | INPUT |
-  | Sentimiento previo: "Tranquilo" |
-  | Nuevo sentimiento: "Encantado" |
-  | OUTPUT |
-  | Sentimiento final: "Encantado" |
+| INPUT |
+| Recuerdo visualizado: Foto "Cumpleaños 2019" |
+| Emoticón seleccionado: "😍" |
 
-Scenario: Visualización del sentimiento por parte del cuidador
-  Given que el adulto mayor marcó un sentimiento sobre un recuerdo
-  When el cuidador visualiza ese mismo recuerdo desde su vista de Biblioteca
-  Then el sistema muestra el sentimiento marcado junto al recuerdo
+| OUTPUT |
+| Reacción guardada: "😍" asociada a "Cumpleaños 2019" |
+
+
+Scenario: El adulto mayor cambia el sentimiento ya marcado en un recuerdo
+  Given que Héctor ya marcó un sentimiento en un recuerdo de la Biblioteca
+  When selecciona un emoticón distinto sobre el mismo recuerdo
+  Then el sistema debe reemplazar el sentimiento anterior
+  And conservar únicamente la última reacción seleccionada
+
 Examples:
-  | INPUT |
-  | Recuerdo: Video del 12/05 |
-  | OUTPUT |
-  | Sentimiento visible para el cuidador: "Encantado" |
+| INPUT |
+| Sentimiento previo: "😢" |
+| Nuevo sentimiento seleccionado: "😊" |
+
+| OUTPUT |
+| Reacción guardada: "😊" (reemplaza a "😢") |
+
+
+Scenario: El sistema falla al guardar el sentimiento marcado
+  Given que Héctor selecciona un emoticón de sentimiento sobre un recuerdo
+  When ocurre un error de conexión al guardar la reacción
+  Then el sentimiento no debe quedar registrado
+  And el sistema debe mostrar el mensaje "No se pudo guardar tu reacción"
+
+Examples:
+| INPUT |
+| Emoticón seleccionado: "😮" |
+| Condición: Falla de conexión |
+
+| OUTPUT |
+| Mensaje de error: "No se pudo guardar tu reacción" |

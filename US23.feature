@@ -3,33 +3,46 @@ Feature: US23 - Tutoriales de uso simple
   Quiero acceder a videos cortos de ayuda dentro de mi perfil
   Para aprender a usar las funciones de la app si se me olvidan
 
-Scenario: Reproducción exitosa de un tutorial
-  Given que el usuario pulsa el botón de "Ayuda"
-  When selecciona un tema (ej. "Cómo enviar un audio")
+Scenario: El adulto mayor reproduce un tutorial disponible
+  Given que Héctor pulsa el botón de "Ayuda"
+  When selecciona un tema, por ejemplo "Cómo enviar un audio"
   Then el sistema reproduce un video tutorial simplificado
-Examples:
-  | INPUT |
-  | Tema seleccionado: "Cómo enviar un audio" |
-  | OUTPUT |
-  | Video tutorial reproducido: Sí |
-  | Duración: <90 segundos |
+  And muestra controles grandes y de fácil uso durante la reproducción
 
-Scenario: Listado de todos los temas disponibles
-  Given que el usuario accede a la sección de Ayuda
-  When visualiza la pantalla principal de tutoriales
-  Then el sistema muestra una lista de temas disponibles con miniaturas representativas
 Examples:
-  | INPUT |
-  | Acción: Acceder a sección "Ayuda" |
-  | OUTPUT |
-  | Temas listados: 5 |
+| INPUT |
+| Botón pulsado: "Ayuda" |
+| Tema seleccionado: "Cómo enviar un audio" |
 
-Scenario: Búsqueda de un tutorial específico
-  Given que el usuario se encuentra en la sección de Ayuda
-  When escribe una palabra clave en el buscador de tutoriales
-  Then el sistema filtra y muestra únicamente los tutoriales relacionados
+| OUTPUT |
+| Video tutorial: Reproducido |
+| Controles: Botones grandes visibles |
+
+
+Scenario: El adulto mayor selecciona un tema sin tutorial disponible
+  Given que Héctor pulsa el botón de "Ayuda"
+  When selecciona un tema que aún no cuenta con video tutorial
+  Then el sistema no debe reproducir ningún video
+  And debe mostrar el mensaje "Tutorial no disponible"
+
 Examples:
-  | INPUT |
-  | Palabra clave: "grabar" |
-  | OUTPUT |
-  | Resultados mostrados: Tutoriales relacionados con grabación |
+| INPUT |
+| Tema seleccionado: "Cómo cambiar el idioma" (sin tutorial) |
+
+| OUTPUT |
+| Mensaje: "Tutorial no disponible" |
+
+
+Scenario: El sistema falla al cargar el video tutorial por falta de conexión
+  Given que Héctor selecciona un tema con tutorial disponible
+  When no cuenta con conexión a internet
+  Then el video tutorial no debe cargarse
+  And el sistema debe mostrar el mensaje "No se pudo cargar el tutorial, verifica tu conexión"
+
+Examples:
+| INPUT |
+| Tema seleccionado: "Cómo ver mis fotos" |
+| Condición: Sin conexión a internet |
+
+| OUTPUT |
+| Mensaje de error: "No se pudo cargar el tutorial, verifica tu conexión" |

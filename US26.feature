@@ -3,33 +3,45 @@ Feature: US26 - Visualización de último recuerdo
   Quiero ver la última foto subida por mi familia al inicio
   Para sentirme conectado emocionalmente desde el primer segundo
 
-Scenario: Visualización exitosa del último recuerdo en el inicio
+Scenario: El adulto mayor ve la vista previa del recuerdo más reciente al ingresar
   Given que se ha subido contenido nuevo a la Biblioteca
-  When el usuario entra a la app
+  When Héctor entra a la app
   Then la pantalla de inicio muestra una vista previa en grande de la imagen más reciente
-Examples:
-  | INPUT |
-  | Última subida: Foto del cumpleaños |
-  | OUTPUT |
-  | Vista previa mostrada: Sí |
-  | Tamaño: Grande, destacado en pantalla de inicio |
+  And permite tocarla para ver el recuerdo completo
 
-Scenario: Sin contenido nuevo desde el último acceso
-  Given que no se ha subido ningún recuerdo nuevo desde la última vez que el usuario abrió la app
-  When el usuario entra a la app
-  Then la pantalla de inicio muestra el recuerdo del día anterior como contenido principal
 Examples:
-  | INPUT |
-  | Contenido nuevo desde último acceso: 0 |
-  | OUTPUT |
-  | Recuerdo mostrado: Recuerdo del día anterior |
+| INPUT |
+| Última foto subida: "Visita de los nietos" (hace 2 horas) |
 
-Scenario: Acceso directo al recuerdo completo desde el inicio
-  Given que el usuario visualiza la vista previa del último recuerdo en el inicio
-  When toca sobre la vista previa
-  Then el sistema lo redirige a la vista completa del recuerdo en la Biblioteca
+| OUTPUT |
+| Pantalla de inicio: Vista previa grande de "Visita de los nietos" |
+
+
+Scenario: El adulto mayor ingresa a la app sin contenido subido aún
+  Given que la familia no ha subido ningún recuerdo a la Biblioteca
+  When Héctor entra a la app
+  Then la pantalla de inicio no debe mostrar ninguna vista previa de imagen
+  And debe mostrar un mensaje por defecto invitando a esperar nuevos recuerdos
+
 Examples:
-  | INPUT |
-  | Acción: Tap en vista previa |
-  | OUTPUT |
-  | Pantalla destino: Biblioteca - vista completa del recuerdo |
+| INPUT |
+| Recuerdos subidos: 0 |
+
+| OUTPUT |
+| Mensaje por defecto: "Pronto verás aquí tus recuerdos" |
+
+
+Scenario: El sistema falla al cargar la vista previa del último recuerdo
+  Given que existe un recuerdo reciente disponible en la Biblioteca
+  When ocurre un error al cargar la vista previa en la pantalla de inicio
+  Then el sistema debe mostrar un ícono de error en lugar de la imagen
+  And debe permitir reintentar la carga
+
+Examples:
+| INPUT |
+| Última foto subida: "Cena familiar" |
+| Condición: Falla de carga de la imagen |
+
+| OUTPUT |
+| Ícono mostrado: Error de carga |
+| Acción disponible: Reintentar |

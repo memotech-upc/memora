@@ -3,36 +3,49 @@ Feature: US09 - Sincronización instantánea de métricas
   Quiero que el Dashboard se actualice sin refrescar la app
   Para tener información veraz al instante
 
-Scenario: Sincronización exitosa de un cambio en tiempo real
+Scenario: El Dashboard de la hija se actualiza automáticamente al recibir un cambio
   Given que la hija tiene la sección Dashboard abierta en su móvil
-  When el padre realiza un cambio en su tablet (ej. registra su estado de ánimo)
-  Then los datos en la pantalla de la hija cambian automáticamente mediante sincronización en la nube
-Examples:
-  | INPUT |
-  | Cambio realizado por: Héctor |
-  | Acción: Registro de estado de ánimo |
-  | OUTPUT |
-  | Dashboard actualizado sin refresh manual: Sí |
-  | Tiempo de sincronización: <5 segundos |
+  When Héctor realiza un cambio en su tablet
+  Then los datos en la pantalla de la hija cambian automáticamente
+  And la actualización ocurre mediante sincronización en la nube
 
-Scenario: Sincronización diferida por pérdida de conexión
-  Given que el dispositivo de la hija pierde conexión temporalmente
-  When el padre realiza una acción durante ese periodo
-  Then el sistema almacena el cambio en cola
-  And lo sincroniza al recuperar la hija la conexión
 Examples:
-  | INPUT |
-  | Estado de conexión de la hija: Sin internet |
-  | OUTPUT |
-  | Cambios en cola: Sí |
-  | Sincronización al reconectar: Sí |
+| INPUT |
+| Cambio realizado por Héctor: Nuevo estado de ánimo registrado |
+| Pantalla de la hija: Dashboard abierto |
 
-Scenario: Indicador visual de estado de sincronización
-  Given que el Dashboard está abierto
-  When ocurre cualquier sincronización exitosa
-  Then el sistema muestra un indicador breve de "Sincronizado hace instantes"
+| OUTPUT |
+| Dashboard de la hija: Actualizado automáticamente |
+| Método: Sincronización en la nube |
+
+
+Scenario: El dispositivo de la hija pierde la conexión a internet
+  Given que la hija tiene la sección Dashboard abierta sin conexión a internet
+  When Héctor realiza un cambio en su tablet
+  Then el sistema no debe sincronizar los datos en tiempo real
+  And debe mostrar el indicador "Sin conexión"
+
 Examples:
-  | INPUT |
-  | Evento: Sincronización completada |
-  | OUTPUT |
-  | Indicador mostrado: "Sincronizado hace instantes" |
+| INPUT |
+| Cambio realizado por Héctor: Nueva foto vista en la Biblioteca |
+| Conexión de la hija: Sin internet |
+
+| OUTPUT |
+| Dashboard de la hija: No actualizado |
+| Indicador mostrado: "Sin conexión" |
+
+
+Scenario: Se recupera la conexión luego de una pérdida temporal de sincronización
+  Given que el dispositivo de la hija recuperó la conexión a internet
+  When existían cambios pendientes de sincronizar
+  Then el sistema debe actualizar el Dashboard con los últimos datos disponibles
+  And debe ocultar el indicador "Sin conexión"
+
+Examples:
+| INPUT |
+| Cambios pendientes: 2 (estado de ánimo, progreso diario) |
+| Conexión recuperada: Sí |
+
+| OUTPUT |
+| Dashboard de la hija: Actualizado con los últimos datos |
+| Indicador "Sin conexión": Oculto |
