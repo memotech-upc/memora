@@ -1,4 +1,4 @@
-Feature: US01 - Navegación principal del Landing Page
+Feature: US-LP01 - Navegación principal del Landing Page
   Como visitante del Landing Page
   Quiero contar con una barra de navegación responsiva con accesos directos
   Para moverme rápidamente entre las secciones del sitio y registrarme
