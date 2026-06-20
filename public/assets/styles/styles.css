@@ -701,3 +701,111 @@ html { overflow-x: hidden; }
   .phone-frame { width: 200px; }
   .phone-screen { min-height: 380px; }
 }
+
+
+
+
+
+/*//////////////////////////*/
+/*//////////////////////////*/
+/*//////////////////////////*/
+/*//////////////////////////*/
+ 
+
+/* ==========================================
+   SISTEMA DE NAVEGACIÓN ENTRE PANTALLAS (CSS PURO)
+   ========================================== */
+
+/* Por defecto, ocultamos las vistas de la app y el login */
+#login-view, #home-view, #recuerdos-view {
+    display: none;
+}
+
+/* Reglas mágicas: cuando la URL cambia, mostramos la pantalla correcta y ocultamos la landing */
+:target#login-view {
+    display: flex;
+}
+:target#login-view ~ #landing-view {
+    display: none;
+}
+
+:target#home-view {
+    display: block; /* El layout usa block para que el flex interno funcione bien */
+}
+:target#home-view ~ #landing-view {
+    display: none;
+}
+
+:target#recuerdos-view {
+    display: block;
+}
+:target#recuerdos-view ~ #landing-view {
+    display: none;
+}
+
+
+/* ==========================================
+   ESTILOS DE LA FACHADA (LOGIN)
+   ========================================== */
+
+.auth-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg);
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.auth-card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    color: var(--blue);
+    font-family: 'DM Serif Display', serif;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.auth-card input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.6rem 0;
+    border: 1px solid rgba(27,85,176,.2);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: 'Source Sans 3', sans-serif;
+    outline: none;
+}
+
+.auth-card input:focus {
+    border-color: var(--blue);
+}
+
+.btn-fake-submit {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    margin-top: 1rem;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 16px rgba(27,85,176,.3);
+}
+
+.btn-fake-submit:hover {
+    background: #1548A0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(27,85,176,.4);
+}
+
