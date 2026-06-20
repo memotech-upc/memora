@@ -1,4 +1,4 @@
-Feature: US03 - Sección Problema del Landing Page
+Feature: US-LP03 - Sección Problema del Landing Page
   Como visitante del Landing Page (familiar o cuidador)
   Quiero identificar situaciones cotidianas relacionadas con el olvido de mi familiar
   Para reconocer que Memora aborda un problema que también vivo en casa
