@@ -1,4 +1,4 @@
-Feature: US07 - Footer del Landing Page
+Feature: US-LP07 - Footer del Landing Page
   Como visitante del Landing Page
   Quiero acceder a información de contacto y enlaces adicionales desde cualquier punto del sitio
   Para encontrar datos legales, de soporte o de la empresa al finalizar mi recorrido
