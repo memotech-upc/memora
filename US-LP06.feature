@@ -1,4 +1,4 @@
-Feature: US06 - Sección de Preguntas Frecuentes (FAQ) del Landing Page
+Feature: US-LP06 - Sección de Preguntas Frecuentes (FAQ) del Landing Page
   Como visitante del Landing Page
   Quiero consultar respuestas a las dudas más comunes sobre Memora
   Para resolver mis inquietudes antes de registrarme sin tener que contactar soporte
