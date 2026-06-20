@@ -1,4 +1,4 @@
-Feature: US05 - Sección Cómo Funciona del Landing Page
+Feature: US-LP05 - Sección Cómo Funciona del Landing Page
   Como visitante del Landing Page
   Quiero ver el proceso de adopción de Memora en pasos simples
   Para entender que iniciar a usar la aplicación no requiere conocimientos técnicos
