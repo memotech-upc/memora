@@ -1,4 +1,4 @@
-Feature: US08 - Responsividad general del Landing Page
+Feature: US-LP08 - Responsividad general del Landing Page
   Como visitante del Landing Page desde cualquier dispositivo
   Quiero que el sitio se adapte correctamente al tamaño de mi pantalla
   Para tener una experiencia de navegación cómoda sin desplazamiento horizontal ni elementos rotos
